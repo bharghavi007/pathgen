@@ -18,7 +18,7 @@ app.post("/api/generate", async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent",
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
       { contents: [{ parts: [{ text: prompt }] }] },
       { headers: { "Content-Type": "application/json" }, params: { key: process.env.GEMINI_API_KEY } }
     );
