@@ -38,7 +38,8 @@ function App() {
         Hi {user} 👋 — Let’s create your learning path!
       </h2>
       <InputForm onSubmit={handleSubmit} />
-      {loading ? <p className="text-gray-500 text-center">Generating...</p> : <Roadmap roadmap={roadmap} />}
+      {loading ? <p className="text-gray-500 text-center">Generating...</p> : <Roadmap roadmap={roadmap} onRegenerate={() => localStorage.removeItem("roadmap")} />
+      }
     </div>
   );
 }
