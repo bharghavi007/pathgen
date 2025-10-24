@@ -4,6 +4,7 @@ import InputForm from "./components/InputForm";
 import Roadmap from "./components/Roadmap";
 import Login from "./components/Login";
 import History from "./components/History";
+import ProgressTracker from "./components/ProgressTracker";
 
 function App() {
   const [roadmap, setRoadmap] = useState([]);
@@ -87,6 +88,7 @@ function App() {
           )}
         </>
       )}
+      {!loading && <ProgressTracker roadmap={roadmap} />}
     </div>
   );
 }
