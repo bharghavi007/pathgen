@@ -31,5 +31,28 @@ app.post("/api/generate", async (req, res) => {
   }
 });
 
+app.post("/api/summary", async (req, res) => {
+  const { completed, total, goal } = req.body;
+
+  const prompt = `
+  The user is learning ${goal} and has completed ${completed} out of ${total} weeks.
+  Write a short motivational message and a one-line tip for staying consistent.
+  `;
+
+  try {
+    const response = await axios.post(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+      { contents: [{ parts: [{ text: prompt }] }] },
+      { headers: { "Content-Type": "application/json" }, params: { key: process.env.GEMINI_API_KEY } }
+    );
+
+    const text = response.data.candidates[0].content.parts[0].text;
+    res.json({ summary: text });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: "Gemini summary error" });
+  }
+});
+
 
 app.listen(5000, () => console.log("Server running on port 5000"));
